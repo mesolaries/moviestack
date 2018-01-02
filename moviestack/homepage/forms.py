@@ -8,10 +8,10 @@ class SearchForm(forms.Form):
                                 widget = forms.TextInput(attrs={'placeholder': 'Search', 'class': 'form-control search-form'}))
 
 class SignUpForm(UserCreationForm):
-    username = forms.RegexField(regex=r'^[a-z0-9.-_]+$',
+    username = forms.RegexField(regex=r'^[a-z0-9_.-]+$',
                                 max_length=30,
                                 label=_("Username"),
-                                error_messages={'invalid': _("This value may contain only letters, numbers and ./-/_ characters.")})
+                                error_messages={'invalid': _("This value may contain only lowercase letters, numbers and ./-/_ characters.")})
     class Meta:
         model = User
 

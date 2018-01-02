@@ -20,7 +20,6 @@ from homepage import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
-    path('search_results/', views.results, name='results'),
     path('signup/', views.signup, name='signup'),
     path('login/', views.log_in, name='login'),
     re_path('movie/(?P<movie_id>[0-9]+)/', views.movie_details, name='movie_details'),

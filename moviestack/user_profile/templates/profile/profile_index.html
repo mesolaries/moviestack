@@ -122,8 +122,8 @@ function events() {
     $("html").css('cursor', 'progress');
     var urlRoot = window.location.origin + "/profile/{{active_user}}/"
     var currentAnchor = $(this);
+    $(".content-wrapper").animate({ scrollTop: 0 }, 600);
     $('.content-wrapper').load(urlRoot + currentAnchor.attr("href") + " #content", function(){
-      $("html").animate({ scrollTop: 0 }, 600);
       $("html").css('cursor', 'default');
       $("#nav li").removeClass('active');
       currentAnchor.find('li').addClass('active');

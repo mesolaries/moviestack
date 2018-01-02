@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %} {{search_query}} | MovieStack {% endblock %}
+{% block title %} {{search}} | MovieStack {% endblock %}
 {% block style %} <link rel="stylesheet" href="{% static "css/search_results.css" %}"> {% endblock %}
 {% block content %}
 
@@ -118,27 +118,27 @@
     <nav aria-label="Page navigation">
       <ul class="pagination justify-content-center text-dark">
         {% if page_number == total_pages and total_pages != 1 %}
-        <li class="page-item"><a class="page-link" href="?page=1">&laquo; First</a></li>
-        <li class="page-item"><a class="page-link" href="?page={{page_number|add:"-1"}}">Previous</a></li>
-        <li class="page-item current disabled"><a class="page-link" href="?page={{page_number}}">{{page_number}}</a></li>
+        <li class="page-item"><a class="page-link" href="?search={{search}}&page=1">&laquo; First</a></li>
+        <li class="page-item"><a class="page-link" href="?search={{search}}&page={{page_number|add:"-1"}}">Previous</a></li>
+        <li class="page-item current disabled"><a class="page-link" href="?search={{search}}&page={{page_number}}">{{page_number}}</a></li>
         {% elif page_number == 1 and total_pages != 1 %}
 
-        <li class="page-item current disabled"><a class="page-link" href="?page={{page_number}}">{{page_number}}</a></li>
+        <li class="page-item current disabled"><a class="page-link" href="?search={{search}}&page={{page_number}}">{{page_number}}</a></li>
 
-        <li class="page-item"><a class="page-link" href="?page={{page_number|add:"1"}}">Next</a></li>
-        <li class="page-item"><a class="page-link" href="?page={{total_pages}}">Last &raquo;</a></li>
+        <li class="page-item"><a class="page-link" href="?search={{search}}&page={{page_number|add:"1"}}">Next</a></li>
+        <li class="page-item"><a class="page-link" href="?search={{search}}&page={{total_pages}}">Last &raquo;</a></li>
         <!-- Debugging  not existing pages-->
         <!-- Better handle this from server -->
         {% elif page_number > total_pages or page_number < 1 or total_pages == 1 %}
         <!-- END -->
         {% else %}
-        <li class="page-item"><a class="page-link" href="?page=1">&laquo; First</a></li>
-        <li class="page-item"><a class="page-link" href="?page={{page_number|add:"-1"}}">Prev</a></li>
+        <li class="page-item"><a class="page-link" href="?search={{search}}&page=1">&laquo; First</a></li>
+        <li class="page-item"><a class="page-link" href="?search={{search}}&page={{page_number|add:"-1"}}">Prev</a></li>
 
-        <li class="page-item current disabled"><a class="page-link" href="?page={{page_number}}">{{page_number}}</a></li>
+        <li class="page-item current disabled"><a class="page-link" href="?search={{search}}&page={{page_number}}">{{page_number}}</a></li>
 
-        <li class="page-item"><a class="page-link" href="?page={{page_number|add:"1"}}">Next</a></li>
-        <li class="page-item"><a class="page-link" href="?page={{total_pages}}">Last &raquo;</a></li>
+        <li class="page-item"><a class="page-link" href="?search={{search}}&page={{page_number|add:"1"}}">Next</a></li>
+        <li class="page-item"><a class="page-link" href="?search={{search}}&page={{total_pages}}">Last &raquo;</a></li>
         {% endif %}
       </ul>
     </nav>
@@ -156,7 +156,7 @@
 
 <script>
 $(document).ready(function(){
-  var search_text = "{{search_query|escapejs}}"
+  var search_text = "{{search|escapejs}}"
   $('.search-form').attr('value', search_text);
 });
 
