@@ -1,0 +1,134 @@
+/*h1, h2 {
+  text-align: center;
+}
+.section-right {
+  float: right;
+  width: 50%
+}
+div h2, h3 {
+  margin: 0;
+  text-align: center;
+}
+.actor {
+  display: inline-block;
+}
+.recom-movie-wrapper{
+  width: 100%;
+}*/
+
+.movie-cover-details {
+  height: 640px;
+  position: relative;
+}
+
+.poster {
+  width: 342px;
+  height: 508px;
+  float: left;
+}
+
+.background {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.poster-wrap {
+  width: auto;
+  height: auto;
+}
+
+.brightness {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: black;
+  opacity: 0.5;
+  z-index: 1;
+}
+
+.movie-details {
+  z-index: 2;
+}
+
+.buttons-wrapper, .buttons-wrapper p, .buttons-wrapper div {
+  vertical-align: middle;
+}
+.buttons-wrapper .action a {
+  color: white;
+  vertical-align: middle;
+}
+
+.modal-header {
+  border: none !important;
+  height: 28px;
+}
+
+.modal-body {
+  width: 80%;
+  height: 80%;
+  margin: 0 auto;
+}
+
+.modal-content {
+  width: 100%;
+  height: 100%;
+  background: black;
+  margin-top: 56px;
+}
+
+.modal-dialog {
+  max-width: unset !important;
+  margin: 0 auto !important;
+  width: 80%;
+  height: 80%;
+}
+
+.close-button-wrapper {
+  width: 100%;
+  margin: 20px;
+}
+
+.close-button-wrapper button {
+  margin: 15px;
+  cursor: pointer;
+}
+
+.close-button-wrapper button span {
+  font-size: 1.2em;
+  color: white;
+}
+
+.cast, .other-videos {
+  display: inline-flex;
+  margin: 15px;
+}
+
+.actor {
+  width: 200px;
+}
+
+.carusel-cast, .other-videos-carusel {
+  overflow-x: scroll;
+}
+
+.cast-title, .videos-title, .recom-title {
+  margin-bottom: -5px;
+}
+
+.recom-movie {
+  margin: 0 15px 15px 15px;
+}
+.recom-movie-wrapper {
+  margin-top: 15px;
+  height: 405px;
+  overflow-y:scroll;
+}
+.meta {
+  margin-top: 42px;
+}
+
+
+.container {
+  padding-bottom: 48px;
+}

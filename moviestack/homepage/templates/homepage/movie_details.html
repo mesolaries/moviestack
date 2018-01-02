@@ -1,0 +1,430 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} {{title}} | MovieStack {% endblock %}
+{% block style %}
+<link rel="stylesheet" media="screen and (min-width: 768px)" href="{% static "css/movie_details_desktop.css" %}">
+<link rel="stylesheet" media="screen and (max-width: 767px)" href="{% static "css/movie_details_mobile.css" %}">
+<link rel="stylesheet" href="{% static "css/movie_details_common.css" %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- Desktop wrap -->
+<div id="desktop-wrap">
+  <!-- Desktop Cover-->
+  <div class="container-fluid p-0 movie-cover-details desktop-cover">
+    <style media="screen">
+      .desktop-cover .background {
+        width: 100%;
+        height: 100%;
+        background-image: url('{{backdrop_img_url}}');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-color: darkgreen;
+        background-blend-mode: overlay;
+        background-position: center;
+      }
+    </style>
+    <div class="background">
+      <div class="brightness"></div>
+      <div class="container movie-details">
+        <div class="poster-wrap float-left">
+          {% if not "None" in poster_img_url and poster_img_url != "" %}
+          <img class="img-thumbnail float-left mr-4 poster" src="{{poster_img_url}}" alt="Poster image">
+          {% else %}
+          <img class="img-thumbnail float-left mr-4 poster" src="{% static "images/404_w360_portrait.png" %}" alt="">
+          {% endif %}
+        </div>
+        <div class="info text-light">
+          <h1 class="mt-4">{{title}}<small class="text-muted"> ({{release_date|date:"Y"}})</small></h1>
+          <p class="font-italic blockquote"><i class="fa fa-quote-left fa-pull-left"></i>{{tagline}}</p>
+          <div class="d-inline-block buttons-wrapper">
+            <p class="px-1 my-3" style="font-size: 1.8em; display: inline-block">{{vote_average}} <i class="fa fa-star"></i></p>
+            <div class="action my-3 mx-3" style="display: inline-block;">
+              {% if movie_id in data_favs %}
+              <a class="delete px-2" data-type="delete-from-favs" data-toggle="tooltip" data-placement="top" title="Delete from favourites" href="#" onClick="return false;" href="#">
+                <i class="fa fa-heart" style="color: red; font-size: 1.8em;"></i>
+              </a>
+              {% else %}
+              <a class="add px-2" data-type="add-to-favs" data-toggle="tooltip" data-placement="top" title="Add to favourites" href="#" onClick="return false;">
+                <i class="fa fa-heart" style="color: unset; background: transparent; font-size: 1.8em"></i>
+              </a>
+              {% endif %}
+
+              {% if movie_id in data_watchlist %}
+              <a class="delete px-2" data-type="delete-from-watchlist" data-toggle="tooltip" data-placement="top" title="Delete from watchlist" href="#" onClick="return false;">
+                <i class="fa fa-bookmark" style="color: orange; font-size: 1.8em;"></i>
+              </a>
+              {% else %}
+              <a class="add px-2" data-type="add-to-watchlist" data-toggle="tooltip" data-placement="top" title="Add to watchlist" href="#" onClick="return false;">
+                <i class="fa fa-bookmark" style="color: unset; background: transparent; font-size: 1.8em"></i>
+              </a>
+              {% endif %}
+            </div>
+            <button class="btn btn-light my-3 ml-4" type="button" data-toggle="modal" data-target="#trailer-desktop" style="cursor: pointer;"><i class="fa fa-play"></i> Play trailer</button>
+          </div>
+          <h4 class="mt-2">Overview</h4>
+          <p class="lead">{{overview|truncatechars:"800"}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal -->
+  <div class="modal fade" id="trailer-desktop" tabindex="-1" role="dialog" aria-labelledby="MovieTrailer" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="close-button-wrapper">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        </div>
+        <div class="modal-body">
+          <iframe width="100%" height="100%"
+          src="{{trailer_url}}" id="trailer-frame-desktop" name="trailer-frame-desktop" frameborder="0" allowfullscreen style="display:block;margin:0 auto;">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End desktop wrap -->
+
+<!-- Mobile wrap -->
+<div id="mobile-wrap">
+  <!-- Mobile Cover  -->
+  <div class="container-fluid p-0 mobile-cover">
+    <style media="screen">
+      .mobile-cover .background {
+        width: 100%;
+        height: 100%;
+        background-image: url('{{backdrop_img_url}}');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        position: relative;
+      }
+      @media screen and (min-width: 576px) {
+        .mobile-cover .background {
+          background-size: contain;
+          background-attachment: fixed;
+          background-position: top;
+        }
+      }
+    </style>
+    <div class="background">
+      {% if not "None" in poster_img_url and poster_img_url != "" %}
+      <img class="poster" src="{{poster_img_url}}" width="114px" height="169px" alt="Poster image">
+      {% else %}
+      <img class="poster" src="{% static "images/404_w360_portrait.png" %}" width="114px" height="169px" alt="">
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="container-fluid p-0">
+    <div class="content">
+      <div class="heading">
+        <div class="title">
+          <h5 class="text-light pl-1">{{title}}</h5>
+          <p class="m-0 pl-1 text-light font-italic"><i class="fa fa-quote-left fa-pull-left"></i> {{tagline}}</p>
+        </div>
+        <div class="vote-trailer text-light font-weight-bold">
+          <p class="m-0 pl-5 pr-4 left"><i class="fa fa-star"></i> {{vote_average}}</p>
+          <button class="btn btn-link m-0 pl-4 pr-5 text-light right font-weight-bold" type="button" data-toggle="modal" data-target="#trailer-mobile" style="cursor: pointer;"><i class="fa fa-play"></i> Play trailer</button>
+        </div>
+      </div>
+      <div class="overview p-3">
+        <h5 class="text-light">Overview</h5>
+        <p class="text-light font-weight-light">{{ overview }}</p>
+      </div>
+    </div>
+  </div>
+
+    <div class="action my-3 mx-3" style="display: inline-block;">
+      {% if movie_id in data_favs %}
+      <a class="delete px-2" data-type="delete-from-favs" data-toggle="tooltip" data-placement="top" title="Delete from favourites" href="#" onClick="return false;" href="#">
+        <i class="fa fa-heart" style="color: red; font-size: 1.8em;"></i>
+      </a>
+      {% else %}
+      <a class="add px-2" data-type="add-to-favs" data-toggle="tooltip" data-placement="top" title="Add to favourites" href="#" onClick="return false;">
+        <i class="fa fa-heart" style="color: unset; background: transparent; font-size: 1.8em"></i>
+      </a>
+      {% endif %}
+
+      {% if movie_id in data_watchlist %}
+      <a class="delete px-2" data-type="delete-from-watchlist" data-toggle="tooltip" data-placement="top" title="Delete from watchlist" href="#" onClick="return false;">
+        <i class="fa fa-bookmark" style="color: orange; font-size: 1.8em;"></i>
+      </a>
+      {% else %}
+      <a class="add px-2" data-type="add-to-watchlist" data-toggle="tooltip" data-placement="top" title="Add to watchlist" href="#" onClick="return false;">
+        <i class="fa fa-bookmark" style="color: unset; background: transparent; font-size: 1.8em"></i>
+      </a>
+      {% endif %}
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="trailer-mobile" tabindex="-1" role="dialog" aria-labelledby="MovieTrailer" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="close-button-wrapper">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          </div>
+          <div class="modal-body">
+            <iframe width="100%" height="90%"
+            src="{{trailer_url}}" id="trailer-frame-mobile" name="trailer-frame-mobile" frameborder="0" allowfullscreen style="display:block;margin:0 auto;">
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</div>
+<!-- End mobile wrap -->
+
+<div class="container-fluid p-0">
+  <div class="row overflow-fix">
+    <div class="col-xs 12 col-md-8">
+
+      <h4 class="mt-2 cast-title">Featured Cast</h4>
+      <div class="carusel-cast">
+        <div class="cast text-dark bg-light">
+          {% for name, char, profile in zipped_name_char_profile %}
+          <div class="card actor mr-1">
+            <img class="card-img-top rounded" src="{{profile}}" alt="Profile picture">
+            <div class="card-body p-3">
+              <h6 class="card-title mb-1">{{name}}</h6>
+              <span class="card-text">{{char}}</span>
+            </div>
+          </div>
+          {% empty %}
+          <p class="text-dark lead">Cast not found</p>
+          {% endfor %}
+        </div>
+      </div>
+
+    </div>
+    <div class="col-xs-12 col-md-4">
+
+      <div class="meta text-dark mt-2">
+        <p class="font-weight-bold m-0">Genres</p>
+        <span class="">{{genres|join:", "}}</span>
+        <p class="font-weight-bold mt-4 mb-0">Release date</p>
+        <span class="">{{release_date|date:"d F Y"}}</span>
+        <p class="font-weight-bold mt-4 mb-0">Status</p>
+        <span class="">{{status}}</span>
+        <p class="font-weight-bold mt-4 mb-0">Rating</p>
+        <span class=""><i class="fa fa-star"></i> {{vote_average}}/10</span>
+      </div>
+
+    </div>
+  </div>
+  <hr>
+  <div class="row overflow-fix">
+    <div class="col-xs-12 col-md-8">
+
+      <h4 class="mt-2 videos-title">Watch other videos</h4>
+      <div class="other-videos-carusel">
+        <div class="other-videos">
+          {% for video, name in videos_zip %}
+          <iframe
+            src="{{video}}" name="videos-frame" width="640" height="360" frameborder="0" allowfullscreen style="display:block;margin:0 auto;">
+          </iframe>
+          {% empty %}
+          <p class="text-dark lead">No other videos found</p>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xs-12 col-md-4">
+      <h4 class="mt-2 recom-title">Recommendations</h4>
+      <div class="recoms-carusel">
+        <div class="recom-movie-wrapper">
+          {% for backdrop, title, vote, id in zipped_recom_back_title_vote_id %}
+          <div class="card recom-movie text-dark bg-light">
+            {% if not "None" in backdrop and backdrop != "" %}
+            <a href="/movie/{{id}}"><img class="card-img-top rounded" src="{{backdrop}}" alt="Backdrop image"></a>
+            {% else %}
+            <a href="/movie/{{id}}"><img class="card-img-top rounded" src="{% static "images/404_w1280.png" %}" alt=""></a>
+            {% endif %}
+            <div class="card-body p-3">
+              <h6 class="card-title d-inline float-left" style="width: 65%;">{{title}}</h6>
+              <span class="float-right"><i class="fa fa-star"></i> {{vote}}</span>
+            </div>
+          </div>
+          {% empty %}
+          <p class="text-dark lead">Recommendations not found</p>
+          {% endfor %}
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<div class="alert alert-success fade show" role="alert" style="display: none;"></div>
+
+<div class="alert alert-danger fade show" role="alert" style="display: none;"></div>
+
+
+{% endblock %}
+
+{% block script %}
+
+<script type="text/javascript">
+
+if ($(window).width() > 767) {
+  $('#mobile-wrap').hide();
+} else {
+  $('#desktop-wrap').hide();
+}
+
+$(document).ready(function(){
+  $('.add, .delete').tooltip();
+});
+</script>
+
+<script>
+$(document).ready(function(){
+  if ($('#mobile-wrap').is(":visible")) {
+    /* Get iframe src attribute value i.e. YouTube video url
+      and store it in a variable */
+      var url = $("#trailer-frame-mobile").attr('src');
+
+      /* Remove iframe src attribute on page load to
+      prevent autoplay in background */
+      $("#trailer-frame-mobile").attr('src', '');
+
+      /* Assign the initially stored url back to the iframe src
+      attribute when modal is displayed */
+      $("#trailer-mobile").on('shown.bs.modal', function(){
+          $("#trailer-frame-mobile").attr('src', url+'?autoplay=1');
+      });
+
+      /* Assign empty url value to the iframe src attribute when
+      modal hide, which stop the video playing */
+      $("#trailer-mobile").on('hide.bs.modal', function(){
+          $("#trailer-frame-mobile").attr('src', '');
+      });
+  } else if ($('#desktop-wrap').is(":visible")) {
+
+    var url = $("#trailer-frame-desktop").attr('src');
+
+    $("#trailer-frame-desktop").attr('src', '');
+
+    $("#trailer-desktop").on('shown.bs.modal', function(){
+        $("#trailer-frame-desktop").attr('src', url+'?autoplay=1');
+    });
+
+    $("#trailer-desktop").on('shown.bs.modal', function(){
+        $("#trailer-frame-desktop").attr('src', url+'?autoplay=1');
+    });
+
+    $("#trailer-desktop").on('hide.bs.modal', function(){
+        $("#trailer-frame-desktop").attr('src', '');
+    });
+
+  }
+});
+
+{% if request.user.is_anonymous %}
+$(document).ready(function(){
+  $('.add[data-type=add-to-favs]').attr('data-original-title', 'Login to add this movie to your favourites');
+  $('.add[data-type=add-to-watchlist]').attr('data-original-title', 'Login to add this movie to your watchlist');
+});
+{% else %}
+$('.add, .delete').click(function(e) {
+e.preventDefault();
+var movieId = {{movie_id}}
+var current_button = $(this);
+var type = $(this).attr('data-type')
+
+$.ajax({
+  url : window.location.href,
+  type : "GET",
+  data : {
+    movieId : movieId,
+    type : type
+  },
+  success : function(){
+    if (current_button.is('.add')){
+      if (current_button.attr('data-type') == 'add-to-favs') {
+        $('.alert-success').fadeIn(function(){
+          $(this).text("Added to favourites!");
+          $(this).alert();
+        });
+        setTimeout(function(){
+          $('.alert-success').fadeOut(function(){
+            $(this).text("");
+          });
+        }, 3000);
+        current_button.find("svg").css('color', 'red')
+        current_button.toggleClass('add delete')
+        current_button.attr('data-original-title', 'Delete from favourites');
+        current_button.attr('data-type', 'delete-from-favs')
+      } else if (current_button.attr('data-type') == 'add-to-watchlist') {
+        $('.alert-success').fadeIn(function(){
+          $(this).text("Added to watchlist!");
+          $(this).alert();
+        });
+        setTimeout(function(){
+          $('.alert-success').fadeOut(function(){
+            $(this).text("");
+          });
+        }, 3000);
+        current_button.toggleClass('add delete')
+        current_button.attr('data-original-title', 'Delete from watchlist');
+        current_button.find("svg").css('color', 'orange')
+        current_button.attr('data-type', 'delete-from-watchlist')
+      }
+    } else if (current_button.is('.delete')) {
+      if (current_button.attr('data-type') == 'delete-from-favs') {
+        $('.alert-danger').fadeIn(function(){
+          $(this).text("Deleted from favourites!");
+          $(this).alert();
+        });
+        setTimeout(function(){
+          $('.alert-danger').fadeOut(function(){
+            $(this).text("");
+          });
+        }, 3000);
+        current_button.toggleClass('delete add')
+        current_button.attr('data-original-title', 'Add to favourites');
+        current_button.find("svg").css('color', 'unset')
+        current_button.attr('data-type', 'add-to-favs')
+      } else if (current_button.attr('data-type') == 'delete-from-watchlist') {
+        $('.alert-danger').fadeIn(function(){
+          $(this).text("Deleted from watchlist!");
+          $(this).alert();
+        });
+        setTimeout(function(){
+          $('.alert-danger').fadeOut(function(){
+            $(this).text("");
+          });
+        }, 3000);
+        current_button.toggleClass('delete add')
+        current_button.attr('data-original-title', 'Add to watchlist');
+        current_button.find("svg").css('color', 'unset')
+        current_button.attr('data-type', 'add-to-watchlist')
+      }
+    }
+  },
+  error : function(xhr,errmsg,err) {
+    {% if user.is_anonymous %}
+    console.log("Login required")
+    {% else %}
+    console.log(xhr.status + ": " + xhr.responseText);
+    {% endif %}
+  }
+});
+
+});
+{% endif %}
+</script>
+{% endblock %}

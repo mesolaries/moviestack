@@ -1,0 +1,92 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Emil Manafov">
+    <meta name="description" content="MovieStack is a web application for people who want to keep/share their favourite movies. Additionally, you can add movies to your watchlist. Thus, you'll never forget about them!">
+    <meta name="theme-color" content="#28a745">
+    <meta content="https://www.emilmanafov.com/static/homepage/images/logo-240.png" itemprop="image">
+    <meta property="og:url" content="https://mstack.emilmanafov.com/">
+    <meta property="og:image" itemprop="image" content="https://www.emilmanafov.com/static/homepage/images/logo-240.png">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="MovieStack">
+    <meta property="og:description" content="MovieStack is a web application for people who want to keep/share their favourite movies. Additionally, you can add movies to your watchlist. Thus, you'll never forget about them!">
+    <title>
+      {% block title %} {% endblock %}
+    </title>
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.min.js"
+      integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+      crossorigin="anonymous">
+    </script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.2/js/all.js"></script>
+    <link rel="shortcut icon" type="image/png" href="{% static "images/favicon.png" %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static "css/base.css"%}">
+    {% block style %} {% endblock %}
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="/"><strong>Movie</strong><strong class="text-success">Stack</strong></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent"> <!-- justify-content-end -->
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link text-light" href="/#about">About</a>
+          </li>
+        </ul>
+        {% if not user.is_authenticated %}
+        <div class="auth-link-wrapper d-flex flex-column align-items-start">
+          <a class="auth-link btn btn-link text-white my-2 my-sm-0 ml-1" href="/login/" style="text-decoration: none;">Log in</a>
+          <a class="auth-link btn btn-link text-white my-2 my-sm-0 ml-1" href="/signup/" style="text-decoration: none;">Sign up</a>
+        </div>
+        {% else %}
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{user}}
+          </button>
+          <div class="dropdown-menu pull-right" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="/profile/{{request.user}}">Profile</a>
+            <div class="dropdown-divider"></div>
+            <div class="dropdown-item">
+              <form class="form-inline my-2 my-lg-0" method="POST">
+                {% csrf_token %}
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="logout">Logout</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+    </nav>
+    {% block content %}
+    {% endblock %}
+
+    <footer class="footer">
+      <div class="container-fluid">
+        <p class="text-muted text-center">&copy; 2017 <a href="https://www.emilmanafov.com/" target="_blank" style="color: #28a745;">Emil Manafov</a> | Powered by <a href="https://www.themoviedb.org/" target="_blank" style="color: #28a745;">TMDB</a></p>
+      </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+    $(window).on("load resize", function(){
+      if ($(this).width() <= 991) {
+        $(".dropdown-menu").removeClass("pull-right");
+        $(".auth-link-wrapper").removeClass("flex-row");
+        $(".auth-link-wrapper").addClass("flex-column");
+      } else {
+        $(".dropdown-menu").addClass("pull-right");
+        $(".auth-link-wrapper").removeClass("flex-column");
+        $(".auth-link-wrapper").addClass("flex-row");
+      }
+    });
+    </script>
+    {% block script %} {% endblock %}
+  </body>
+</html>

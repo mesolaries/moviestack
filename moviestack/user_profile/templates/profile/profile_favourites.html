@@ -1,0 +1,44 @@
+{% load static %}
+<div id="content">
+  <h2 class="mb-3">Favourite movies</h2>
+  <div class="favourites mx-auto">
+    {% if not fav_data %}
+    <div class="movie bg-light text-dark mb-2 mx-auto" style="width: 90%;">
+      <h3>No movies found</h3>
+    </div>
+    {% else %}
+      {% for backdrop, title, date, genres, overview, id in fav_data %}
+      <div class="card movie bg-light text-dark mb-2 mx-auto" style="width: 90%;">
+        <a href="/movie/{{id}}">
+          {% if not "None" in backdrop and backdrop != "" %}
+          <img class="card-img-top" src="{{backdrop}}" alt="backdrop image">
+          {% else %}
+          <img class="card-img-top" src="{% static "404_w1280.png" %}" alt="">
+          {% endif %}
+        </a>
+        <div class="card-body">
+          <h4 class="card-title"><a class="text-dark" href="/movie/{{id}}">{{title}}</a></h4>
+          <p class="card-text d-flex justify-content-between align-items-center meta">
+            <span class="font-italic genre text-left">{{genres|join:', '}}</span>
+            <span class="date text-right"><i class="fa fa-calendar"></i> {{date|date:"d F, Y"}}</span>
+          </p>
+          <p class="card-text font-weight-light">{{overview|truncatechars:"200"}}</p>
+        </div>
+      </div>
+      {% endfor %}
+      <nav>
+        <ul class="pagination step-links justify-content-center align-items-center">
+          {% if fav_data.has_previous %}
+          <li class="page-item"><a class="page-link" href="favourites/?page=1">&laquo; First</a></li>
+          <li class="page-item"><a class="page-link" href="favourites/?page={{fav_data.previous_page_number}}">Previous</a></li>
+          {% endif %}
+          <li class="page-item current disabled"><a class="page-link" href="favourites/?page={{fav_data.number}}">{{ fav_data.number }}</a></li>
+          {% if fav_data.has_next %}
+          <li class="page-item"><a class="page-link" href="favourites/?page={{fav_data.next_page_number}}">Next</a></li>
+          <li class="page-item"><a class="page-link" href="favourites/?page={{fav_data.paginator.num_pages}}">Last &raquo;</a></li>
+          {% endif %}
+        </ul>
+      </nav>
+    {% endif %}
+  </div>
+</div>

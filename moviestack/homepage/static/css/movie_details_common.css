@@ -1,0 +1,114 @@
+.alert {
+  position: fixed;
+  top: 0;
+  right: 0;
+  margin: 20px;
+  z-index: 1000;
+}
+
+/* Desktop */
+
+@media screen and (min-width: 768px) {
+  .overflow-fix {
+    margin: 0 !important;
+  }
+
+  .cast, .other-videos {
+    display: inline-flex;
+    margin: 15px;
+  }
+
+  .actor {
+    width: 200px;
+  }
+
+  .actor img {
+    height: 290px;
+    object-fit: cover;
+  }
+
+  .meta {
+    margin-top: calc(42px + 15px) !important;
+  }
+
+  .container {
+    padding-bottom: 48px;
+  }
+
+  .carusel-cast, .other-videos-carusel {
+    overflow-x: scroll;
+    border: 1px solid lightgrey;
+    border-radius: 10px;
+    background-color: whitesmoke;
+  }
+  .recoms-carusel {
+    overflow-y: scroll;
+    max-width: 750px;
+    height: 405px;
+    margin: 15px;
+  }
+
+  .recom-movie {
+    margin-bottom: 15px;
+    width: 100%;
+  }
+
+  .cast-title, .videos-title, .recom-title {
+    margin-top: 15px !important;
+    margin-left: 15px;
+  }
+}
+
+
+
+/* Mobile */
+
+@media screen and (max-width: 767px) {
+  .cast, .other-videos {
+    display: inline-flex;
+    margin: 15px 0;
+    margin-right: 0;
+  }
+
+  .actor {
+    width: 100%;
+  }
+
+  .actor img {
+    width: 144px;
+    height: 171px;
+    object-fit: cover;
+  }
+
+  .actor:last-child {
+    margin: 0 !important;
+  }
+
+  .overflow-fix {
+    margin: 0 !important;
+  }
+
+  .carusel-cast, .other-videos-carusel, .recoms-carusel {
+    overflow-x: scroll;
+  }
+
+  .cast-title, .videos-title, .recom-title {
+    margin-bottom: -5px;
+  }
+
+  .other-videos iframe {
+    width: 320px; height: 180px;
+  }
+
+  .recom-movie {
+    margin-bottom: 15px;
+    width: 330px;
+  }
+
+  .recom-movie-wrapper {
+    margin-top: 15px;
+    display: inline-flex;
+    align-items: flex-start;
+  }
+
+}

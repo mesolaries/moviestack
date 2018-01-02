@@ -1,0 +1,48 @@
+{% load static %}
+<div id="content">
+  <h2 class="mb-3">Watchlist</h2>
+  <div class="watchlist mx-auto">
+    {% if not watchlist_data %}
+    <div class="movie bg-light text-dark mb-2 mx-auto" style="width: 90%;">
+      <h3>No movies found</h3>
+    </div>
+    {% else %}
+      {% for backdrop, title, date, genres, overview, id in watchlist_data %}
+      <div class="card movie bg-light text-dark mb-2 mx-auto" style="width: 90%;">
+        <a href="/movie/{{id}}">
+          {% if not "None" in backdrop and backdrop != "" %}
+          <img class="card-img-top" src="{{backdrop}}" alt="backdrop image">
+          {% else %}
+          <img class="card-img-top" src="{% static "404_w1280.png" %}" alt="">
+          {% endif %}
+        </a>
+        <div class="card-body">
+          <h4 class="card-title"><a class="text-dark" href="/movie/{{id}}">{{title}}</a></h4>
+          <p class="card-text d-flex justify-content-between align-items-center meta">
+            <span class="font-italic genre text-left">{{genres|join:', '}}</span>
+            <span class="date text-right"><i class="fa fa-calendar"></i> {{date|date:"d F, Y"}}</span>
+          </p>
+          <p class="card-text font-weight-light">{{overview|truncatechars:"200"}}</p>
+        </div>
+      </div>
+      {% endfor %}
+      <nav>
+        <ul class="pagination step-links justify-content-center align-items-center">
+          {% if watchlist_data.has_previous %}
+          <li class="page-item"><a class="page-link" href="watchlist/?page=1">&laquo; First</a></li>
+          <li class="page-item"><a class="page-link" href="watchlist/?page={{watchlist_data.previous_page_number}}">Previous</a></li>
+          {% endif %}
+          <span class="current">
+            &nbsp;
+            Page {{ watchlist_data.number }} of {{ watchlist_data.paginator.num_pages }}.
+            &nbsp;
+          </span>
+          {% if watchlist_data.has_next %}
+          <li class="page-item"><a class="page-link" href="watchlist/?page={{watchlist_data.next_page_number}}">Next</a></li>
+          <li class="page-item"><a class="page-link" href="watchlist/?page={{watchlist_data.paginator.num_pages}}">Last &raquo;</a></li>
+          {% endif %}
+        </ul>
+      </nav>
+    {% endif %}
+  </div>
+</div>

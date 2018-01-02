@@ -1,0 +1,42 @@
+.header {
+  height: 80px;
+}
+
+.header h1 {
+  line-height: 80px;
+  margin: 0;
+}
+
+#submit {
+  width: 100%;
+  border-radius: 10px;
+  letter-spacing: 1px;
+}
+
+form {
+  max-width: 512px;
+  margin: 0 auto;
+}
+
+.has-error.form-control {
+  border-color: #dc3545;
+}
+
+.has-error.form-control:focus {
+  box-shadow: 0 0 0 0.2rem rgba(220,53,69,0.25);
+}
+
+a:hover {
+  text-decoration: none !important;
+}
+
+.deco-none {
+  color: unset;
+  text-decoration: none;
+}
+
+.deco-none:hover {
+  cursor: pointer;
+  text-decoration: none;
+  color: unset;
+}

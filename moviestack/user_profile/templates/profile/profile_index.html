@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} {{username}} | MovieStack {% endblock %}
+{% block style %} <link rel="stylesheet" href="{% static "css/profile_index.css" %}"> {% endblock %}
+
+{% block content %}
+<div class="container-fluid bg-light text-dark cover p-0">
+  <div class="container-fluid filter bg-dark"></div>
+  <style media="screen">
+    {% if not "None" in cover and cover != "" %}
+    .cover {
+      background-image: url("{{cover}}");
+      background-repeat: no-repeat;
+      background-position: top;
+      background-size: cover;
+      height: 300px;
+      position: relative;
+    }
+    {% else %}
+    .cover {
+      background-image: url("{% static 'images/profile_cover.jpg' %}");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      height: 300px;
+      position: relative;
+    }
+    {% endif %}
+  </style>
+  <div class="container text-light headline">
+      <h1 class="mb-2">{{active_user}}'s Movie<span class="text-success">Stack</span></h1>
+      <p class="font-weight-bold">
+        <span><i class="fa fa-heart" style="color: red;"></i> {{fav_count|default:"0"}} favourite movies</span>
+        &nbsp;
+        <span style="white-space: nowrap;"><i class="fa fa-bookmark" style="color: orange; margin: 0 4px;"></i> {{watchlist_count|default:"0"}} movies in watchlist</span>
+      </p>
+      <p class="text-right font-weight-light">Registered on: {{active_user.date_joined|date:"d M Y"}}</p>
+  </div>
+</div>
+
+<div class="container bg-light text-dark mt-5">
+  <div class="row">
+    <div class="col-sm-5 col-md-4 col-xs-12 order-sm-2 mb-5">
+      <ul class="list-group" id="nav">
+        <a href="">
+          <li class="list-group-item d-flex justify-content-between align-items-center active">
+            Overview
+            <span class="badge badge-success badge-pill">{{upcoming_count|default:"0"}}</span>
+          </li>
+        </a>
+        <a href="favourites">
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            Favourites
+            <span class="badge badge-success badge-pill">{{fav_count|default:"0"}}</span>
+          </li>
+        </a>
+        <a href="watchlist">
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            Watchlist
+            <span class="badge badge-success badge-pill">{{watchlist_count|default:"0"}}</span>
+          </li>
+        </a>
+      </ul>
+    </div>
+    <div class="col-sm-7 col-md-8 col-xs-12 order-sm-1 content-wrapper">
+      <div id="content">
+        <h2 class="mb-3">Upcoming from watchlist</h2>
+        <div class="upcoming mx-auto">
+          {% if not upcoming_data %}
+          <div class="movie bg-light text-dark mb-2 mx-auto" style="width: 90%;">
+            <h3 class="">No movies found</h3>
+          </div>
+          {% else %}
+            {% for backdrop, title, genres, date, id in upcoming_data %}
+            <div class="card movie bg-light text-dark mb-2 mx-auto" style="width: 90%;">
+              <a href="/movie/{{id}}">
+                {% if not "None" in backdrop and backdrop != "" %}
+                <img class="card-img-top" src="{{backdrop}}" alt="backdrop image">
+                {% else %}
+                <img class="card-img-top" src="{% static "images/404_w1280.png" %}" alt="">
+                {% endif %}
+              </a>
+              <div class="card-body">
+                <h4 class="card-title"><a class="text-dark" href="/movie/{{id}}">{{title}}</a></h4>
+                <p class="card-text d-flex justify-content-between align-items-center meta">
+                  <span class="font-italic genre text-left">{{genres|join:', '}}</span>
+                  <span class="date text-right"><i class="fa fa-calendar"></i> {{date|date:"d F, Y"}}</span>
+                </p>
+              </div>
+            </div>
+            {% endfor %}
+            <div class="pagination-wrap">
+              <nav>
+                <ul class="pagination step-links justify-content-center align-items-center">
+                  {% if upcoming_data.has_previous %}
+                  <li class="page-item"><a class="page-link" href="?page=1">&laquo; First</a></li>
+                  <li class="page-item"><a class="page-link" href="?page={{upcoming_data.previous_page_number}}">Previous</a></li>
+                  {% endif %}
+                  <li class="page-item current disabled"><a class="page-link" href="favourites/?page={{upcoming_data.number}}">{{ upcoming_data.number }}</a></li>
+                  {% if upcoming_data.has_next %}
+                  <li class="page-item"><a class="page-link" href="?page={{upcoming_data.next_page_number}}">Next</a></li>
+                  <li class="page-item"><a class="page-link" href="?page={{upcoming_data.paginator.num_pages}}">Last &raquo;</a></li>
+                  {% endif %}
+                </ul>
+              </nav>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+function events() {
+  $("#nav, .pagination").on('click', 'a', function(e){
+    e.preventDefault();
+    $("html").css('cursor', 'progress');
+    var urlRoot = window.location.origin + "/profile/{{active_user}}/"
+    var currentAnchor = $(this);
+    $('.content-wrapper').load(urlRoot + currentAnchor.attr("href") + " #content", function(){
+      $("html").animate({ scrollTop: 0 }, 600);
+      $("html").css('cursor', 'default');
+      $("#nav li").removeClass('active');
+      currentAnchor.find('li').addClass('active');
+      events();
+    })
+  });
+}
+$(document).ready(events);
+</script>
+{% endblock %}

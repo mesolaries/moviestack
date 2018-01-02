@@ -1,0 +1,274 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} {{search_query}} | MovieStack {% endblock %}
+{% block style %} <link rel="stylesheet" href="{% static "css/search_results.css" %}"> {% endblock %}
+{% block content %}
+
+<main>
+  <div class="container-fluid bg-white text-dark">
+    <div class="container form-container search-form-container">
+      <i class="fas fa-search fa-lg text-muted"></i>
+      <form method="GET" class="form">
+        {{ form }}
+        <button type="submit" style="display: none;">Search</button>
+      </form>
+    </div>
+    <hr>
+    <h5 class="header text-muted mb-3">Search results: <small>{{total_results|default:"No"}} movies found</small></h5>
+    <div class="row">
+      {% for id, poster, backdrop, title, vote, genres, overview, date in zipped_id_poster_backdrop_title_vote_genres_overview_date %}
+      <div class="col-xs-12 full-width">
+        <!-- Mobile -->
+        <div class="card bg-light text-dark movie mb-1 mobile" style="width: 90%;">
+          {% if "None" in backdrop %}
+          <a href="/movie/{{id}}"><img class="card-img-top backdrop" src="{% static "images/404_w1280.png" %}" alt=""></a>
+          {% else %}
+          <a href="/movie/{{id}}"><img class="card-img-top backdrop" src="{{backdrop}}" alt="Backdrop image"></a>
+          {% endif %}
+          <div class="card-body info">
+            <p class="d-flex m-0 justify-content-between align-items-center">
+              <a href="/movie/{{id}}" class="h5 card-title m-0 title">{{title}}</a>
+              <span class="card-text text-dark vote"><i class="fas fa-star"></i> {{vote}}</span>
+            </p>
+            <p class="d-flex justify-content-between align-items-center text-muted">
+              <span class="card-text genre font-italic">{{genres|join:", "}}</span>
+              <span class="card-text text-muted date font-weight-light"><i class="fas fa-calendar"></i> {{date|date:"Y, M d"}}</span>
+            </p>
+            <p class="card-text overview font-weight-light">{{overview|truncatechars:150}}</p>
+            <div class="mobile-action text-center">
+              <div class="adding-movie">
+                <input class="movie-id" type="hidden" name="movie-id" value="{{id}}">
+                {% if id in data_favs %}
+                <a class="card-link btn btn-light delete" data-type="delete-from-favs" data-toggle="tooltip" data-placement="top" title="Delete from favourites" href="#" onClick="return false;">
+                  <i class="fas fa-heart" style="color: red; font-size: 1.5em;"></i>
+                </a>
+                {% else %}
+                <a class="card-link btn btn-light add" data-type="add-to-favs" data-toggle="tooltip" data-placement="top" title="Add to favourites" href="#" onClick="return false;">
+                  <i class="fas fa-heart" style="color: unset; background: transparent; font-size: 1.5em"></i>
+                </a>
+                {% endif %}
+
+                {% if id in data_watchlist %}
+                <a class="card-link btn btn-light delete" data-type="delete-from-watchlist" data-toggle="tooltip" data-placement="top" title="Delete from watchlist" href="#" onClick="return false;">
+                  <i class="fas fa-bookmark" style="color: orange; font-size: 1.5em;"></i>
+                </a>
+                {% else %}
+                <a class="card-link btn btn-light add" data-type="add-to-watchlist" data-toggle="tooltip" data-placement="top" title="Add to watchlist" href="#" onClick="return false;">
+                  <i class="fas fa-bookmark" style="color: unset; background: transparent; font-size: 1.5em"></i>
+                </a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Desktop -->
+        <div class="card bg-light text-dark movie mb-1 desktop" style="width: 720px;">
+          <div class="card-body info">
+            <div class="image-action-wrapper">
+              {% if "None" in poster %}
+              <a href="/movie/{{id}}">
+                <img class="card-img-left poster" src="{% static "images/404_w360_portrait.png" %}" alt="">
+              </a>
+              {% else %}
+              <a href="/movie/{{id}}">
+                <img class="card-img-left poster" src="{{poster}}" alt="Poster image">
+              </a>
+              {% endif %}
+              <div class="desktop-action bg-light">
+                <div class="adding-movie">
+                  <input class="movie-id" type="hidden" name="movie-id" value="{{id}}">
+                  {% if id in data_favs %}
+                  <a class="card-link btn btn-light delete" data-type="delete-from-favs" data-toggle="tooltip" data-placement="top" title="Delete from favourites" href="#" onClick="return false;">
+                    <i class="fas fa-heart" style="color: red; font-size: 1.5em;"></i>
+                  </a>
+                  {% else %}
+                  <a class="card-link btn btn-light add" data-type="add-to-favs" data-toggle="tooltip" data-placement="top" data-dismiss="alert" title="Add to favourites" href="#" onClick="return false;">
+                    <i class="fas fa-heart" style="color: unset; background: transparent; font-size: 1.5em"></i>
+                  </a>
+                  {% endif %}
+
+                  {% if id in data_watchlist %}
+                  <a class="card-link btn btn-light delete" data-type="delete-from-watchlist" data-toggle="tooltip" data-placement="top" title="Delete from watchlist" href="#" onClick="return false;">
+                    <i class="fas fa-bookmark" style="color: orange; font-size: 1.5em;"></i>
+                  </a>
+                  {% else %}
+                  <a class="card-link btn btn-light add" data-type="add-to-watchlist" data-toggle="tooltip" data-placement="top" title="Add to watchlist" href="#" onClick="return false;">
+                    <i class="fas fa-bookmark" style="color: unset; background: transparent; font-size: 1.5em"></i>
+                  </a>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+            <p class="d-flex m-0 justify-content-between align-items-center">
+              <a href="/movie/{{id}}" class="h3 card-title m-0 title">{{title}}</a>
+              <span class="card-text text-dark vote"><i class="fas fa-star text-dark"></i> {{vote}}</span>
+            </p>
+            <p class="d-flex justify-content-between align-items-center text-muted">
+              <span class="card-text genre font-italic">{{genres|join:", "}}</span>
+              <span class="card-text text-muted date font-weight-light"><i class="fas fa-calendar"></i> {{date|date:"Y, M d"}}</span>
+            </p>
+            <p class="card-text overview font-weight-light">{{overview|truncatechars:250}}</p>
+            <a class="btn btn-link text-muted details-link" href="/movie/{{id}}">Details</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <hr>
+    <nav aria-label="Page navigation">
+      <ul class="pagination justify-content-center text-dark">
+        {% if page_number == total_pages and total_pages != 1 %}
+        <li class="page-item"><a class="page-link" href="?page=1">&laquo; First</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{page_number|add:"-1"}}">Previous</a></li>
+        <li class="page-item current disabled"><a class="page-link" href="?page={{page_number}}">{{page_number}}</a></li>
+        {% elif page_number == 1 and total_pages != 1 %}
+
+        <li class="page-item current disabled"><a class="page-link" href="?page={{page_number}}">{{page_number}}</a></li>
+
+        <li class="page-item"><a class="page-link" href="?page={{page_number|add:"1"}}">Next</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{total_pages}}">Last &raquo;</a></li>
+        <!-- Debugging  not existing pages-->
+        <!-- Better handle this from server -->
+        {% elif page_number > total_pages or page_number < 1 or total_pages == 1 %}
+        <!-- END -->
+        {% else %}
+        <li class="page-item"><a class="page-link" href="?page=1">&laquo; First</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{page_number|add:"-1"}}">Prev</a></li>
+
+        <li class="page-item current disabled"><a class="page-link" href="?page={{page_number}}">{{page_number}}</a></li>
+
+        <li class="page-item"><a class="page-link" href="?page={{page_number|add:"1"}}">Next</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{total_pages}}">Last &raquo;</a></li>
+        {% endif %}
+      </ul>
+    </nav>
+    <hr>
+  </div>
+
+  <div class="alert alert-success fade show" role="alert" style="display: none;"></div>
+
+  <div class="alert alert-danger fade show" role="alert" style="display: none;"></div>
+</main>
+
+{% endblock %}
+
+{% block script %}
+
+<script>
+$(document).ready(function(){
+  var search_text = "{{search_query|escapejs}}"
+  $('.search-form').attr('value', search_text);
+});
+
+$('.image-action-wrapper').hover(function(){
+  $(this).find('.desktop-action').css({'visibility': 'visible'});
+}, function() {
+  $(this).find('.desktop-action').css({'visibility': 'hidden'});
+});
+
+{% if request.user.is_anonymous %}
+$(document).ready(function(){
+    $('.add[data-type=add-to-favs]').attr('data-original-title', 'Login to add this movie to your favourites');
+    $('.add[data-type=add-to-watchlist]').attr('data-original-title', 'Login to add this movie to your watchlist');
+});
+{% else %}
+$('.add, .delete').click(function(e) {
+  e.preventDefault();
+  var movieId = $(this).parent().children('.movie-id').val();
+  var current_button = $(this);
+  var type = $(this).attr('data-type')
+
+  $.ajax({
+    url : window.location.href,
+    type : "GET",
+    data : {
+      movieId : movieId,
+      type : type
+    },
+    success : function(){
+      if (current_button.is('.add')){
+        if (current_button.attr('data-type') == 'add-to-favs') {
+          $('.alert-success').fadeIn(function(){
+            $(this).text("Added to favourites!");
+            $(this).alert();
+          });
+          setTimeout(function(){
+            $('.alert-success').fadeOut(function(){
+              $(this).text("");
+            });
+          }, 3000);
+          current_button.find("svg").css('color', 'red')
+          current_button.toggleClass('add delete')
+          current_button.attr('data-original-title', 'Delete from favourites');
+          current_button.attr('data-type', 'delete-from-favs')
+        } else if (current_button.attr('data-type') == 'add-to-watchlist') {
+          $('.alert-success').fadeIn(function(){
+            $(this).text("Added to watchlist!");
+            $(this).alert();
+          });
+          setTimeout(function(){
+            $('.alert-success').fadeOut(function(){
+              $(this).text("");
+            });
+          }, 3000);
+          current_button.toggleClass('add delete')
+          current_button.attr('data-original-title', 'Delete from watchlist');
+          current_button.find("svg").css('color', 'orange')
+          current_button.attr('data-type', 'delete-from-watchlist')
+        }
+      } else if (current_button.is('.delete')) {
+        if (current_button.attr('data-type') == 'delete-from-favs') {
+          $('.alert-danger').fadeIn(function(){
+            $(this).text("Deleted from favourites!");
+            $(this).alert();
+          });
+          setTimeout(function(){
+            $('.alert-danger').fadeOut(function(){
+              $(this).text("");
+            });
+          }, 3000);
+          current_button.toggleClass('delete add')
+          current_button.attr('data-original-title', 'Add to favourites');
+          current_button.find("svg").css('color', 'unset')
+          current_button.attr('data-type', 'add-to-favs')
+        } else if (current_button.attr('data-type') == 'delete-from-watchlist') {
+          $('.alert-danger').fadeIn(function(){
+            $(this).text("Deleted from watchlist!");
+            $(this).alert();
+          });
+          setTimeout(function(){
+            $('.alert-danger').fadeOut(function(){
+              $(this).text("");
+            });
+          }, 3000);
+          current_button.toggleClass('delete add')
+          current_button.attr('data-original-title', 'Add to watchlist');
+          current_button.find("svg").css('color', 'unset')
+          current_button.attr('data-type', 'add-to-watchlist')
+        }
+      }
+    },
+    error : function(xhr,errmsg,err) {
+      {% if user.is_anonymous %}
+      console.log("Login required")
+      {% else %}
+      console.log(xhr.status + ": " + xhr.responseText);
+      {% endif %}
+    }
+  });
+
+});
+{% endif %}
+
+</script>
+<script type="text/javascript">
+  if ($(window).width() >= 768) {
+    $('.mobile').hide();
+  } else {
+    $('.desktop').hide();
+  }
+
+  $('.add, .delete').tooltip()
+</script>
+
+{% endblock %}

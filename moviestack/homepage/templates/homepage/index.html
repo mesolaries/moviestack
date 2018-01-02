@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} MovieStack {% endblock %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+{% endblock %}
+{% block content %}
+<main class="">
+  <div class="container-fluid top-bottom-buffer">
+    <div class="row">
+      <div class="col-md order-md-1 content">
+        <div class="container form-container">
+          <p class="display-4 text-center mb-3">Search for movies you're interested in!</p>
+            <form role="search" method="GET" class="form search-form">
+              <div class="input-group input-group-lg">
+                {{ form }}
+              <span class="input-group-btn">
+                <button type="submit" class="btn btn-success"><i class="fas fa-search" aria-hidden="true"></i>&nbsp;</button>
+              </span>
+              </div>
+            </form>
+        </div>
+      </div>
+      <div class="col-md-auto order-md-2 sidenav">
+        <div class="now-playing">
+        {% for poster, title, id in zipped_poster_title_id_first %}
+          <div class="movie">
+            <figure class="figure">
+              <a href="/movie/{{id}}">
+                {% if not "None" in poster and poster != "" %}
+                <img src="{{poster}}" class="img-thumbnail figure-img img-fluid" alt="Poster">
+                {% else %}
+                <img src="{% static "images/404_w360_portrait.png" %}" class="img-thumbnail figure-img img-fluid" alt="">
+                {% endif %}
+                <figcaption class="figure-caption text-center font-weight-bold">{{title}}</figcaption>
+              </a>
+            </figure>
+          </div>
+        {% endfor %}
+        </div>
+      </div>
+      <div class="col-md-auto sidenav">
+        <div class="now-playing">
+        {% for poster, title, id in zipped_poster_title_id_second %}
+          <div class="movie">
+            <figure class="figure">
+              <a href="/movie/{{id}}">
+                {% if not "None" in poster and poster != "" %}
+                <img src="{{poster}}" class="img-thumbnail figure-img img-fluid" alt="Poster">
+                {% else %}
+                <img src="{% static "images/404_w360_portrait.png" %}" class="img-thumbnail figure-img img-fluid" alt="">
+                {% endif %}
+                <figcaption class="figure-caption text-center font-weight-bold">{{title}}</figcaption>
+              </a>
+            </figure>
+          </div>
+        {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="info" class="container">
+    <button type="button" class="close p-3" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <div id="about" class="jumbotron mt-4">
+      <h1 class="display-4">Welcome!</h1>
+      <p class="lead">This web application is for people who want to keep/share their favourite movies. Additionally, you can add movies to your watchlist. Thus, you'll never forget about them!</p>
+      <hr class="my-4">
+      <p class="mb-0">The website was created for particular educational purposes and portfolio using Django 2.0</p>
+      <small class="text-muted">For support/feedback contact <a class="text-success" href="mailto:mail@emilmanafov.com" target="_blank">mail@emilmanafov.com</a></small>
+      <p class="lead my-3">
+        <a class="btn btn-success btn-lg" href="https://www.emilmanafov.com/" target="_blank" role="button">Learn more</a>
+      </p>
+    </div>
+  </div>
+</main>
+{% endblock %}
+{% block script %}
+<script type="text/javascript">
+  $(document).ready(function(){
+  $(".close").click(function(e){
+    $('#info').hide();
+  });
+  });
+</script>
+{% endblock %}

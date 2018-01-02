@@ -1,0 +1,94 @@
+@media screen and (max-width: 991px) {
+  html {
+    font-size: 12px !important;
+  }
+  .desktop-cover .poster {
+    width: calc(342px / 1.5) !important;
+    height: calc(508px / 1.5) !important;
+  }
+
+}
+
+.desktop-cover {
+  height: 640px;
+  position: relative;
+}
+
+.desktop-cover .poster {
+  width: 342px;
+  height: 508px;
+}
+
+.desktop-cover .background {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.poster-wrap {
+  width: auto;
+  height: auto;
+}
+
+.brightness {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: black;
+  opacity: 0.5;
+  z-index: 1;
+}
+
+.movie-details {
+  z-index: 2;
+}
+
+.buttons-wrapper, .buttons-wrapper p, .buttons-wrapper div {
+  vertical-align: middle;
+}
+
+.buttons-wrapper .action a {
+  color: white;
+  vertical-align: middle;
+}
+
+/* Modal css */
+
+.modal-header {
+  border: none !important;
+  height: 28px;
+}
+
+.modal-body {
+  width: 80%;
+  height: 80%;
+  margin: 0 auto;
+}
+
+.modal-content {
+  width: 100%;
+  height: 100%;
+  background: black;
+  margin-top: 56px;
+}
+
+.modal-dialog {
+  max-width: unset !important;
+  margin: 0 auto !important;
+  width: 80%;
+  height: 80%;
+}
+
+.close-button-wrapper {
+  width: 100%;
+  margin: 20px;
+}
+
+.close-button-wrapper button {
+  cursor: pointer;
+}
+
+.close-button-wrapper button span {
+  font-size: 1.2em;
+  color: white;
+}
