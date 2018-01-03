@@ -32,11 +32,7 @@
           <li class="page-item"><a class="page-link" href="watchlist/?page=1">&laquo; First</a></li>
           <li class="page-item"><a class="page-link" href="watchlist/?page={{watchlist_data.previous_page_number}}">Previous</a></li>
           {% endif %}
-          <span class="current">
-            &nbsp;
-            Page {{ watchlist_data.number }} of {{ watchlist_data.paginator.num_pages }}.
-            &nbsp;
-          </span>
+          <li class="page-item current disabled"><a class="page-link" href="watchlist/?page={{watchlist_data.number}}">{{ watchlist_data.number }}</a></li>
           {% if watchlist_data.has_next %}
           <li class="page-item"><a class="page-link" href="watchlist/?page={{watchlist_data.next_page_number}}">Next</a></li>
           <li class="page-item"><a class="page-link" href="watchlist/?page={{watchlist_data.paginator.num_pages}}">Last &raquo;</a></li>

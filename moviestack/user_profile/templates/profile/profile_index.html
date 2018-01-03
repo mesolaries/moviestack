@@ -119,18 +119,27 @@
 function events() {
   $("#nav, .pagination").on('click', 'a', function(e){
     e.preventDefault();
-    $("html").css('cursor', 'progress');
-    var urlRoot = window.location.origin + "/profile/{{active_user}}/"
-    var currentAnchor = $(this);
-    $(".content-wrapper").animate({ scrollTop: 0 }, 600);
-    $('.content-wrapper').load(urlRoot + currentAnchor.attr("href") + " #content", function(){
-      $("html").css('cursor', 'default');
-      $("#nav li").removeClass('active');
-      currentAnchor.find('li').addClass('active');
-      events();
-    })
+    if  (!$(this).find('li').hasClass("active") && !$(this).hasClass("no-click")) {
+      $("#nav a, .pagination a").addClass("no-click");
+      $("html").css('cursor', 'progress');
+      var urlRoot = window.location.origin + "/profile/{{active_user}}/";
+      var currentAnchor = $(this);
+      $('.content-wrapper').load(urlRoot + currentAnchor.attr("href") + " #content", function(){
+        $('html, body').animate({scrollTop:$('.row').position().top}, 'slow');
+        $("html").css('cursor', 'default');
+        if (currentAnchor.is("#nav a")) {
+          console.log("true");
+          $("#nav li").removeClass('active');
+          currentAnchor.find('li').addClass('active');
+        }
+        console.log("false");
+        $("#nav a, .pagination a").removeClass("no-click");
+        events();
+      })
+    }
   });
 }
 $(document).ready(events);
+
 </script>
 {% endblock %}

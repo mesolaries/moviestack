@@ -174,90 +174,98 @@ $(document).ready(function(){
 {% else %}
 $('.add, .delete').click(function(e) {
   e.preventDefault();
-  var movieId = $(this).parent().children('.movie-id').val();
-  var current_button = $(this);
-  var type = $(this).attr('data-type')
+  if ($(this).hasClass("no-click")) {
+    $.noop();
+  } else {
+    $(this).addClass("no-click");
 
-  $.ajax({
-    url : window.location.href,
-    type : "GET",
-    data : {
-      movieId : movieId,
-      type : type
-    },
-    success : function(){
-      if (current_button.is('.add')){
-        if (current_button.attr('data-type') == 'add-to-favs') {
-          $('.alert-success').fadeIn(function(){
-            $(this).text("Added to favourites!");
-            $(this).alert();
-          });
-          setTimeout(function(){
-            $('.alert-success').fadeOut(function(){
-              $(this).text("");
+    var movieId = $(this).parent().children('.movie-id').val();
+    var current_button = $(this);
+    var type = $(this).attr('data-type')
+
+    $.ajax({
+      url : window.location.href,
+      type : "GET",
+      data : {
+        movieId : movieId,
+        type : type
+      },
+      success : function(){
+        if (current_button.is('.add')){
+          if (current_button.attr('data-type') == 'add-to-favs') {
+            $('.alert-success').fadeIn(function(){
+              $(this).text("Added to favourites!");
+              $(this).alert();
             });
-          }, 3000);
-          current_button.find("svg").css('color', 'red')
-          current_button.toggleClass('add delete')
-          current_button.attr('data-original-title', 'Delete from favourites');
-          current_button.attr('data-type', 'delete-from-favs')
-        } else if (current_button.attr('data-type') == 'add-to-watchlist') {
-          $('.alert-success').fadeIn(function(){
-            $(this).text("Added to watchlist!");
-            $(this).alert();
-          });
-          setTimeout(function(){
-            $('.alert-success').fadeOut(function(){
-              $(this).text("");
+            setTimeout(function(){
+              $('.alert-success').fadeOut(function(){
+                $(this).text("");
+              });
+            }, 3000);
+            current_button.find("svg").css('color', 'red')
+            current_button.toggleClass('add delete')
+            current_button.attr('data-original-title', 'Delete from favourites');
+            current_button.attr('data-type', 'delete-from-favs')
+          } else if (current_button.attr('data-type') == 'add-to-watchlist') {
+            $('.alert-success').fadeIn(function(){
+              $(this).text("Added to watchlist!");
+              $(this).alert();
             });
-          }, 3000);
-          current_button.toggleClass('add delete')
-          current_button.attr('data-original-title', 'Delete from watchlist');
-          current_button.find("svg").css('color', 'orange')
-          current_button.attr('data-type', 'delete-from-watchlist')
+            setTimeout(function(){
+              $('.alert-success').fadeOut(function(){
+                $(this).text("");
+              });
+            }, 3000);
+            current_button.toggleClass('add delete')
+            current_button.attr('data-original-title', 'Delete from watchlist');
+            current_button.find("svg").css('color', 'orange')
+            current_button.attr('data-type', 'delete-from-watchlist')
+          }
+        } else if (current_button.is('.delete')) {
+          if (current_button.attr('data-type') == 'delete-from-favs') {
+            $('.alert-danger').fadeIn(function(){
+              $(this).text("Deleted from favourites!");
+              $(this).alert();
+            });
+            setTimeout(function(){
+              $('.alert-danger').fadeOut(function(){
+                $(this).text("");
+              });
+            }, 3000);
+            current_button.toggleClass('delete add')
+            current_button.attr('data-original-title', 'Add to favourites');
+            current_button.find("svg").css('color', 'unset')
+            current_button.attr('data-type', 'add-to-favs')
+          } else if (current_button.attr('data-type') == 'delete-from-watchlist') {
+            $('.alert-danger').fadeIn(function(){
+              $(this).text("Deleted from watchlist!");
+              $(this).alert();
+            });
+            setTimeout(function(){
+              $('.alert-danger').fadeOut(function(){
+                $(this).text("");
+              });
+            }, 3000);
+            current_button.toggleClass('delete add')
+            current_button.attr('data-original-title', 'Add to watchlist');
+            current_button.find("svg").css('color', 'unset')
+            current_button.attr('data-type', 'add-to-watchlist')
+          }
         }
-      } else if (current_button.is('.delete')) {
-        if (current_button.attr('data-type') == 'delete-from-favs') {
-          $('.alert-danger').fadeIn(function(){
-            $(this).text("Deleted from favourites!");
-            $(this).alert();
-          });
-          setTimeout(function(){
-            $('.alert-danger').fadeOut(function(){
-              $(this).text("");
-            });
-          }, 3000);
-          current_button.toggleClass('delete add')
-          current_button.attr('data-original-title', 'Add to favourites');
-          current_button.find("svg").css('color', 'unset')
-          current_button.attr('data-type', 'add-to-favs')
-        } else if (current_button.attr('data-type') == 'delete-from-watchlist') {
-          $('.alert-danger').fadeIn(function(){
-            $(this).text("Deleted from watchlist!");
-            $(this).alert();
-          });
-          setTimeout(function(){
-            $('.alert-danger').fadeOut(function(){
-              $(this).text("");
-            });
-          }, 3000);
-          current_button.toggleClass('delete add')
-          current_button.attr('data-original-title', 'Add to watchlist');
-          current_button.find("svg").css('color', 'unset')
-          current_button.attr('data-type', 'add-to-watchlist')
-        }
+        current_button.removeClass("no-click");
+      },
+      error : function(xhr,errmsg,err) {
+        {% if user.is_anonymous %}
+        console.log("Login required")
+        {% else %}
+        console.log(xhr.status + ": " + xhr.responseText);
+        {% endif %}
       }
-    },
-    error : function(xhr,errmsg,err) {
-      {% if user.is_anonymous %}
-      console.log("Login required")
-      {% else %}
-      console.log(xhr.status + ": " + xhr.responseText);
-      {% endif %}
-    }
-  });
+    });
 
+  }
 });
+
 {% endif %}
 
 </script>
