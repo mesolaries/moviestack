@@ -30,13 +30,13 @@
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <a class="navbar-brand" href="/"><strong>Movie</strong><strong class="text-success">Stack</strong></a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" name="Toggle navigation" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent"> <!-- justify-content-end -->
         <ul class="nav">
           <li class="nav-item">
-            <a class="nav-link text-light" href="/#about">About</a>
+            <a class="nav-link text-light" href="/#about" onclick="$('#info').show();">About</a>
           </li>
         </ul>
         {% if not user.is_authenticated %}
@@ -46,7 +46,7 @@
         </div>
         {% else %}
         <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <button class="btn btn-secondary dropdown-toggle" name="Dropdown menu button" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {{user}}
           </button>
           <div class="dropdown-menu pull-right" aria-labelledby="dropdownMenuButton">
@@ -55,7 +55,7 @@
             <div class="dropdown-item">
               <form class="form-inline my-2 my-lg-0" method="POST">
                 {% csrf_token %}
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="logout">Logout</button>
+                <button class="btn btn-outline-success my-2 my-sm-0" name="logout" type="submit">Logout</button>
               </form>
             </div>
           </div>

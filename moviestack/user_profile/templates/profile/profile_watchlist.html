@@ -11,9 +11,9 @@
       <div class="card movie bg-light text-dark mb-2 mx-auto" style="width: 90%;">
         <a href="/movie/{{id}}">
           {% if not "None" in backdrop and backdrop != "" %}
-          <img class="card-img-top" src="{{backdrop}}" alt="backdrop image">
+          <img class="card-img-top" src="{{backdrop}}" alt="Backdrop image">
           {% else %}
-          <img class="card-img-top" src="{% static "404_w1280.png" %}" alt="">
+          <img class="card-img-top" src="{% static "404_w1280.png" %}" alt="Backdrop image placeholder">
           {% endif %}
         </a>
         <div class="card-body">

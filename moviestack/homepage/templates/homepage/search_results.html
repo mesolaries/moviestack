@@ -10,7 +10,7 @@
       <i class="fas fa-search fa-lg text-muted"></i>
       <form method="GET" class="form">
         {{ form }}
-        <button type="submit" style="display: none;">Search</button>
+        <button type="submit" name="Search" style="display: none;">Search</button>
       </form>
     </div>
     <hr>
@@ -21,7 +21,7 @@
         <!-- Mobile -->
         <div class="card bg-light text-dark movie mb-1 mobile" style="width: 90%;">
           {% if "None" in backdrop %}
-          <a href="/movie/{{id}}"><img class="card-img-top backdrop" src="{% static "images/404_w1280.png" %}" alt=""></a>
+          <a href="/movie/{{id}}"><img class="card-img-top backdrop" src="{% static "images/404_w1280.png" %}" alt="Backdrop placeholder"></a>
           {% else %}
           <a href="/movie/{{id}}"><img class="card-img-top backdrop" src="{{backdrop}}" alt="Backdrop image"></a>
           {% endif %}
@@ -67,7 +67,7 @@
             <div class="image-action-wrapper">
               {% if "None" in poster %}
               <a href="/movie/{{id}}">
-                <img class="card-img-left poster" src="{% static "images/404_w360_portrait.png" %}" alt="">
+                <img class="card-img-left poster" src="{% static "images/404_w360_portrait.png" %}" alt="Poster placeholder">
               </a>
               {% else %}
               <a href="/movie/{{id}}">

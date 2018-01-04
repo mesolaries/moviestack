@@ -15,7 +15,7 @@
               <div class="input-group input-group-lg">
                 {{ form }}
               <span class="input-group-btn">
-                <button type="submit" class="btn btn-success"><i class="fas fa-search" aria-hidden="true"></i>&nbsp;</button>
+                <button type="submit" name="Search" class="btn btn-success"><i class="fas fa-search" aria-hidden="true"></i>&nbsp;</button>
               </span>
               </div>
             </form>
@@ -30,7 +30,7 @@
                 {% if not "None" in poster and poster != "" %}
                 <img src="{{poster}}" class="img-thumbnail figure-img img-fluid" alt="Poster">
                 {% else %}
-                <img src="{% static "images/404_w360_portrait.png" %}" class="img-thumbnail figure-img img-fluid" alt="">
+                <img src="{% static "images/404_w360_portrait.png" %}" class="img-thumbnail figure-img img-fluid" alt="Poster placeholder">
                 {% endif %}
                 <figcaption class="figure-caption text-center font-weight-bold">{{title}}</figcaption>
               </a>
@@ -48,7 +48,7 @@
                 {% if not "None" in poster and poster != "" %}
                 <img src="{{poster}}" class="img-thumbnail figure-img img-fluid" alt="Poster">
                 {% else %}
-                <img src="{% static "images/404_w360_portrait.png" %}" class="img-thumbnail figure-img img-fluid" alt="">
+                <img src="{% static "images/404_w360_portrait.png" %}" class="img-thumbnail figure-img img-fluid" alt="Poster placeholder">
                 {% endif %}
                 <figcaption class="figure-caption text-center font-weight-bold">{{title}}</figcaption>
               </a>
@@ -60,7 +60,7 @@
     </div>
   </div>
   <div id="info" class="container">
-    <button type="button" class="close p-3" aria-label="Close">
+    <button type="button" name="Close" class="close p-3" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
     <div id="about" class="jumbotron mt-4">

@@ -76,9 +76,9 @@
             <div class="card movie bg-light text-dark mb-2 mx-auto" style="width: 90%;">
               <a href="/movie/{{id}}">
                 {% if not "None" in backdrop and backdrop != "" %}
-                <img class="card-img-top" src="{{backdrop}}" alt="backdrop image">
+                <img class="card-img-top" src="{{backdrop}}" alt="Backdrop image">
                 {% else %}
-                <img class="card-img-top" src="{% static "images/404_w1280.png" %}" alt="">
+                <img class="card-img-top" src="{% static "images/404_w1280.png" %}" alt="Backdrop image placeholder">
                 {% endif %}
               </a>
               <div class="card-body">
@@ -128,11 +128,9 @@ function events() {
         $('html, body').animate({scrollTop:$('.row').position().top}, 'slow');
         $("html").css('cursor', 'default');
         if (currentAnchor.is("#nav a")) {
-          console.log("true");
           $("#nav li").removeClass('active');
           currentAnchor.find('li').addClass('active');
         }
-        console.log("false");
         $("#nav a, .pagination a").removeClass("no-click");
         events();
       })

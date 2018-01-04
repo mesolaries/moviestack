@@ -40,7 +40,7 @@
         {% render_field form.password1 class="form-control mb-2" placeholder=form.password1.label %}
         <small id="password-error" class="form-text text-danger mb-2 p-0">{{form.password2.errors.0}}</small>
         {% render_field form.password2 class="form-control" placeholder=form.password2.label %}
-        <button id="submit" class="btn btn-success d-block mx-auto mt-3 text-uppercase font-weight-bold" type="submit" style="cursor: pointer;">Sign Up</button>
+        <button id="submit" name="Sign up" class="btn btn-success d-block mx-auto mt-3 text-uppercase font-weight-bold" type="submit" style="cursor: pointer;">Sign Up</button>
       </form>
       <p class="text-center mt-2">Already have an account? <a class="text-success" href="/login">Log in</a></p>
     </div>

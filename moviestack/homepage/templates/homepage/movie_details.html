@@ -32,7 +32,7 @@
           {% if not "None" in poster_img_url and poster_img_url != "" %}
           <img class="img-thumbnail float-left mr-4 poster" src="{{poster_img_url}}" alt="Poster image">
           {% else %}
-          <img class="img-thumbnail float-left mr-4 poster" src="{% static "images/404_w360_portrait.png" %}" alt="">
+          <img class="img-thumbnail float-left mr-4 poster" src="{% static "images/404_w360_portrait.png" %}" alt="Poster image placeholder">
           {% endif %}
         </div>
         <div class="info text-light">
@@ -62,9 +62,9 @@
               {% endif %}
             </div>
             {% if not trailer_url %}
-            <button class="btn btn-light my-3 ml-4" type="button" data-toggle="modal" data-target="#trailer-desktop" style="cursor: pointer;" disabled><i class="fa fa-play"></i> Play trailer</button>
+            <button class="btn btn-light my-3 ml-4" type="button"  name="Play trailer" data-toggle="modal" data-target="#trailer-desktop" style="cursor: pointer;" disabled><i class="fa fa-play"></i> Play trailer</button>
             {% else %}
-            <button class="btn btn-light my-3 ml-4" type="button" data-toggle="modal" data-target="#trailer-desktop" style="cursor: pointer;"><i class="fa fa-play"></i> Play trailer</button>
+            <button class="btn btn-light my-3 ml-4" type="button" name="Play trailer" data-toggle="modal" data-target="#trailer-desktop" style="cursor: pointer;"><i class="fa fa-play"></i> Play trailer</button>
             {% endif %}
           </div>
           <h4 class="mt-2">Overview</h4>
@@ -79,7 +79,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <div class="close-button-wrapper">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" name="Close" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -121,7 +121,7 @@
       {% if not "None" in poster_img_url and poster_img_url != "" %}
       <img class="poster" src="{{poster_img_url}}" width="114px" height="169px" alt="Poster image">
       {% else %}
-      <img class="poster" src="{% static "images/404_w360_portrait.png" %}" width="114px" height="169px" alt="">
+      <img class="poster" src="{% static "images/404_w360_portrait.png" %}" width="114px" height="169px" alt="Poster image placeholder">
       {% endif %}
     </div>
   </div>
@@ -177,7 +177,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <div class="close-button-wrapper">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <button type="button" name="Close" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
@@ -203,7 +203,11 @@
         <div class="cast text-dark bg-light">
           {% for name, char, profile in zipped_name_char_profile %}
           <div class="card actor mr-1">
+            {% if not "None" in profile and profile != "" %}
             <img class="card-img-top rounded" src="{{profile}}" alt="Profile picture">
+            {% else %}
+            <img class="card-img-top rounded" src="{% static "images/404_cast_profile.png" %}" alt="Profile picture placeholder">
+            {% endif %}
             <div class="card-body p-3">
               <h6 class="card-title mb-1">{{name}}</h6>
               <span class="card-text">{{char}}</span>
@@ -258,7 +262,7 @@
             {% if not "None" in backdrop and backdrop != "" %}
             <a href="/movie/{{id}}"><img class="card-img-top rounded" src="{{backdrop}}" alt="Backdrop image"></a>
             {% else %}
-            <a href="/movie/{{id}}"><img class="card-img-top rounded" src="{% static "images/404_w1280.png" %}" alt=""></a>
+            <a href="/movie/{{id}}"><img class="card-img-top rounded" src="{% static "images/404_w1280.png" %}" alt="Backdrop image placeholder"></a>
             {% endif %}
             <div class="card-body p-3">
               <h6 class="card-title d-inline float-left" style="width: 65%;">{{title}}</h6>

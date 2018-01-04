@@ -56,7 +56,10 @@ def index(request, username):
         fav_ids = user.fav_movies_ids_as_list()
 
         watchlist_count = len(watchlist_ids)
-        fav_count = len(fav_ids)
+        if user.fav_movies_ids == '':
+            fav_count = 0
+        else:
+            fav_count = len(fav_ids)
 
 
 
