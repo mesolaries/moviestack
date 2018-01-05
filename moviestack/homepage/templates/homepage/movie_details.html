@@ -136,9 +136,9 @@
         <div class="vote-trailer text-light font-weight-bold">
           <p class="m-0 pl-5 pr-4 left"><i class="fa fa-star"></i> {{vote_average}}</p>
           {% if not trailer_url %}
-          <button class="btn btn-link m-0 pl-4 pr-5 text-light right font-weight-bold" type="button" data-toggle="modal" data-target="#trailer-mobile" style="cursor: pointer;" disabled><i class="fa fa-play"></i> Play trailer</button>
+          <button class="btn btn-link m-0 pl-4 pr-5 text-light right font-weight-bold" name="Play trailer" type="button" data-toggle="modal" data-target="#trailer-mobile" style="cursor: pointer;" disabled><i class="fa fa-play"></i> Play trailer</button>
           {% else %}
-          <button class="btn btn-link m-0 pl-4 pr-5 text-light right font-weight-bold" type="button" data-toggle="modal" data-target="#trailer-mobile" style="cursor: pointer;"><i class="fa fa-play"></i> Play trailer</button>
+          <button class="btn btn-link m-0 pl-4 pr-5 text-light right font-weight-bold" name="Play trailer" type="button" data-toggle="modal" data-target="#trailer-mobile" style="cursor: pointer;"><i class="fa fa-play"></i> Play trailer</button>
           {% endif %}
         </div>
       </div>
