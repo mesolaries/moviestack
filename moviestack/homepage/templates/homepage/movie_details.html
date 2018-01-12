@@ -1,5 +1,13 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block meta %}
+<meta name="description" content="{{overview}}">
+<meta content="{{poster_img_url}}" itemprop="image">
+<meta property="og:image" itemprop="image" content="{{poster_img_url}}">
+<meta property="og:title" content="{{title}} - MovieStack">
+<meta property="og:description" content="{{overview}}">
+<meta property="og:url" content="{{request.build_absolute_uri}}">
+{% endblock %}
 {% block title %} {{title}} | MovieStack {% endblock %}
 {% block style %}
 <link rel="stylesheet" media="screen and (min-width: 768px)" href="{% static "css/movie_details_desktop.css" %}">
@@ -68,7 +76,7 @@
             {% endif %}
           </div>
           <h4 class="mt-2">Overview</h4>
-          <p class="lead">{{overview|truncatechars:"800"}}</p>
+          <p class="lead overview d-flex">{{overview}}</p>
         </div>
       </div>
     </div>
@@ -144,7 +152,7 @@
       </div>
       <div class="overview p-3">
         <h5 class="text-light">Overview</h5>
-        <p class="text-light font-weight-light">{{ overview }}</p>
+        <p class="overview text-light font-weight-light">{{ overview }}</p>
       </div>
     </div>
   </div>
@@ -194,7 +202,7 @@
 </div>
 <!-- End mobile wrap -->
 
-<div class="container-fluid p-0">
+<div class="container mt-3">
   <div class="row overflow-fix">
     <div class="col-xs 12 col-md-8">
 

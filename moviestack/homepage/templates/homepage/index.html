@@ -1,5 +1,13 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block meta %}
+<meta name="description" content="MovieStack is a web application for people who want to keep/share their favourite movies. Additionally, you can add movies to your watchlist. Thus, you'll never forget about them!">
+<meta content="https://www.emilmanafov.com/static/homepage/images/logo-240.png" itemprop="image">
+<meta property="og:image" itemprop="image" content="https://www.emilmanafov.com/static/homepage/images/logo-240.png">
+<meta property="og:title" content="MovieStack">
+<meta property="og:description" content="MovieStack is a web application for people who want to keep/share their favourite movies. Additionally, you can add movies to your watchlist. Thus, you'll never forget about them!">
+<meta property="og:url" content="{{request.build_absolute_uri}}">
+{% endblock %}
 {% block title %} MovieStack {% endblock %}
 {% block style %}
 <link rel="stylesheet" href="{% static 'css/index.css' %}">

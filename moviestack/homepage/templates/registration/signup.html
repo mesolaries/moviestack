@@ -6,14 +6,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="author" content="Emil Manafov">
-    <meta name="description" content="MovieStack is a web application for people who want to keep/share their favourite movies. Additionally, you can add movies to your watchlist. Thus, you'll never forget about them!">
+    <meta name="description" content="">
     <meta name="theme-color" content="#28a745">
     <meta content="https://www.emilmanafov.com/static/homepage/images/logo-240.png" itemprop="image">
-    <meta property="og:url" content="https://mstack.emilmanafov.com/">
+    <meta property="og:url" content="{{request.build_absolute_uri}}">
     <meta property="og:image" itemprop="image" content="https://www.emilmanafov.com/static/homepage/images/logo-240.png">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="MovieStack">
-    <meta property="og:description" content="MovieStack is a web application for people who want to keep/share their favourite movies. Additionally, you can add movies to your watchlist. Thus, you'll never forget about them!">
+    <meta property="og:title" content="Sign up - MovieStack">
+    <meta property="og:description" content="">
     <title>Sign up | MovieStack</title>
     <script
       src="https://code.jquery.com/jquery-3.2.1.min.js"
@@ -34,7 +34,6 @@
       <h4 class="text-center mb-3 font-weight-bold">Sign up with unique username</h4>
       <form method="POST">
         {% csrf_token %}
-        <!-- {{form.non_field.errors}}  -->
         {% render_field form.username class="form-control mb-2" placeholder=form.username.label %}
         <small id="username-error" class="form-text text-danger mb-2">{{form.username.errors.0}}</small>
         {% render_field form.password1 class="form-control mb-2" placeholder=form.password1.label %}

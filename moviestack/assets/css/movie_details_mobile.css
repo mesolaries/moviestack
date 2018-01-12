@@ -14,12 +14,12 @@
 
 .heading {
   height: 150px;
-  background-color: green;
+  background-color: #28a745;
 }
 
 .overview {
   height: auto;
-  background-color: darkgreen;
+  background-color: forestgreen;
 }
 
 .title {

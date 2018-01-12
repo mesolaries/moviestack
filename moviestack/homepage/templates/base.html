@@ -5,14 +5,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="author" content="Emil Manafov">
-    <meta name="description" content="MovieStack is a web application for people who want to keep/share their favourite movies. Additionally, you can add movies to your watchlist. Thus, you'll never forget about them!">
+    <meta name="copyright" content="Emil Manafov">
     <meta name="theme-color" content="#28a745">
-    <meta content="https://www.emilmanafov.com/static/homepage/images/logo-240.png" itemprop="image">
-    <meta property="og:url" content="https://mstack.emilmanafov.com/">
-    <meta property="og:image" itemprop="image" content="https://www.emilmanafov.com/static/homepage/images/logo-240.png">
+    <meta name="keywords" content="movies, movie, movie details, movie post, movie watchlist, top movies, favourite movies">
+    {% block meta %} {% endblock %}
     <meta property="og:type" content="website">
-    <meta property="og:title" content="MovieStack">
-    <meta property="og:description" content="MovieStack is a web application for people who want to keep/share their favourite movies. Additionally, you can add movies to your watchlist. Thus, you'll never forget about them!">
+    <meta name="google-site-verification" content="cxE-tPV2uG-fFrVzU7Wn8fnuhP_WmnyWEsTn1srJ7E8" />
     <title>
       {% block title %} {% endblock %}
     </title>
@@ -33,7 +31,7 @@
       <button class="navbar-toggler" type="button" name="Toggle navigation" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent"> <!-- justify-content-end -->
+      <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
         <ul class="nav">
           <li class="nav-item">
             <a class="nav-link text-light" href="/#about" onclick="$('#info').show();">About</a>
@@ -41,8 +39,8 @@
         </ul>
         {% if not user.is_authenticated %}
         <div class="auth-link-wrapper d-flex flex-column align-items-start">
-          <a class="auth-link btn btn-link text-white my-2 my-sm-0 ml-1" href="/login/" style="text-decoration: none;">Log in</a>
-          <a class="auth-link btn btn-link text-white my-2 my-sm-0 ml-1" href="/signup/" style="text-decoration: none;">Sign up</a>
+          <a class="auth-link btn btn-link text-white my-2 my-sm-0 ml-1" href="/login/?next={{request.path}}" style="text-decoration: none;">Log in</a>
+          <a class="auth-link btn btn-link text-white my-2 my-sm-0 ml-1" href="/signup/?next={{request.path}}" style="text-decoration: none;">Sign up</a>
         </div>
         {% else %}
         <div class="dropdown">

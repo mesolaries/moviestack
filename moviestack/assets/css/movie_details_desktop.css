@@ -6,6 +6,9 @@
     width: calc(342px / 1.5) !important;
     height: calc(508px / 1.5) !important;
   }
+  .info {
+    height: calc(508px / 1.5) !important; /* Equal to poster image height */
+  }
 
 }
 
@@ -37,6 +40,34 @@
   background: black;
   opacity: 0.5;
   z-index: 1;
+}
+
+.info {
+  height: 508px; /* Equal to poster image height */
+}
+
+.overview {
+  height: 45%;
+  overflow-y: hidden;
+}
+
+.overview:hover {
+  overflow-y: scroll;
+}
+
+.overview::-webkit-scrollbar {
+    width: 0.5rem;
+}
+
+.overview::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+}
+
+.overview::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: lightgrey;
+  outline: 1px solid slategrey;
 }
 
 .movie-details {
