@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block meta %}
-<meta name="description" content="MovieStack is a web application for people who want to keep/share their favourite movies. Additionally, you can add movies to your watchlist. Thus, you'll never forget about them!">
-<meta content="https://www.emilmanafov.com/static/homepage/images/logo-240.png" itemprop="image">
-<meta property="og:image" itemprop="image" content="https://www.emilmanafov.com/static/homepage/images/logo-240.png">
-<meta property="og:title" content="MovieStack">
-<meta property="og:description" content="MovieStack is a web application for people who want to keep/share their favourite movies. Additionally, you can add movies to your watchlist. Thus, you'll never forget about them!">
-<meta property="og:url" content="{{request.build_absolute_uri}}">
+  <meta name="description" content="MovieStack is a web application for people who want to keep/share their favourite movies. Additionally, you can add movies to your watchlist. Thus, you'll never forget about them!">
+  <meta content="https://www.emilmanafov.com/static/homepage/images/logo-240.png" itemprop="image">
+  <meta property="og:image" itemprop="image" content="https://www.emilmanafov.com/static/homepage/images/logo-240.png">
+  <meta property="og:title" content="MovieStack">
+  <meta property="og:description" content="MovieStack is a web application for people who want to keep/share their favourite movies. Additionally, you can add movies to your watchlist. Thus, you'll never forget about them!">
+  <meta property="og:url" content="{{request.build_absolute_uri}}">
 {% endblock %}
 {% block title %} MovieStack {% endblock %}
 {% block style %}
-<link rel="stylesheet" href="{% static 'css/index.css' %}">
+  <link rel="stylesheet" href="{% static 'css/index.css' %}">
 {% endblock %}
 {% block content %}
 <main class="">
@@ -76,9 +76,11 @@
       <p class="lead">This web application is for people who want to keep/share their favourite movies. Additionally, you can add movies to your watchlist. Thus, you'll never forget about them!</p>
       <hr class="my-4">
       <p class="mb-0">The website was created for particular educational purposes and portfolio using Django 2.0</p>
-      <small class="text-muted">For support/feedback contact <a class="text-success" href="mailto:mail@emilmanafov.com" target="_blank">mail@emilmanafov.com</a></small>
+      <small class="text-muted">For support/feedback contact <a class="text-success" href="mailto:mail@emilmanafov.com" target="_blank" rel="noopener">mail@emilmanafov.com</a></small>
+      <small class="text-muted d-block">GitHub repository: <a class="text-success" href="https://github.com/mesolaries/moviestack" target="_blank" rel="noopener">https://github.com/mesolaries/moviestack</a></small>
+      <small class="text-muted d-block">My hosting provider is <a class="text-success" href="https://beget.com/?id=657463" target="_blank" rel="noopener">beget.com</a></small>
       <p class="lead my-3">
-        <a class="btn btn-success btn-lg" href="https://www.emilmanafov.com/" target="_blank" role="button">Learn more</a>
+        <a class="btn btn-success btn-lg" href="https://www.emilmanafov.com/" target="_blank" rel="noopener" role="button">Learn more</a>
       </p>
     </div>
   </div>

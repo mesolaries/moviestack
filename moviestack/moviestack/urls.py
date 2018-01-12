@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, re_path, include
+from django.http import HttpResponse
 from homepage import views
 
 urlpatterns = [
@@ -22,6 +23,7 @@ urlpatterns = [
     path('', views.IndexView.as_view()),
     path('signup/', views.SignUpView.as_view()),
     path('login/', views.LogInView.as_view()),
+    path('robots.txt/', lambda r: HttpResponse("User-agent: *\nDisallow: /*/favourites/\nDisallow: /*/watchlist/", content_type='text/plain')),
     re_path('movie/(?P<movie_id>[0-9]+)/', views.DetailsView.as_view()),
     re_path('profile/(?P<username>[a-z0-9._-]+)/', include('user_profile.urls')),
 ]

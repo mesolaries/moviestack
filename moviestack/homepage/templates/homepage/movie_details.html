@@ -1,18 +1,18 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block meta %}
-<meta name="description" content="{{overview}}">
-<meta content="{{poster_img_url}}" itemprop="image">
-<meta property="og:image" itemprop="image" content="{{poster_img_url}}">
-<meta property="og:title" content="{{title}} - MovieStack">
-<meta property="og:description" content="{{overview}}">
-<meta property="og:url" content="{{request.build_absolute_uri}}">
+  <meta name="description" content="{{overview}}">
+  <meta content="{{poster_img_url}}" itemprop="image">
+  <meta property="og:image" itemprop="image" content="{{poster_img_url}}">
+  <meta property="og:title" content="{{title}} - MovieStack">
+  <meta property="og:description" content="{{overview}}">
+  <meta property="og:url" content="{{request.build_absolute_uri}}">
 {% endblock %}
 {% block title %} {{title}} | MovieStack {% endblock %}
 {% block style %}
-<link rel="stylesheet" media="screen and (min-width: 768px)" href="{% static "css/movie_details_desktop.css" %}">
-<link rel="stylesheet" media="screen and (max-width: 767px)" href="{% static "css/movie_details_mobile.css" %}">
-<link rel="stylesheet" href="{% static "css/movie_details_common.css" %}">
+  <link rel="stylesheet" media="screen and (min-width: 768px)" href="{% static "css/movie_details_desktop.css" %}">
+  <link rel="stylesheet" media="screen and (max-width: 767px)" href="{% static "css/movie_details_mobile.css" %}">
+  <link rel="stylesheet" href="{% static "css/movie_details_common.css" %}">
 {% endblock %}
 
 {% block content %}
