@@ -1,1 +1,2 @@
-moviestack/assets/* linguist-vendored
+moviestack/* linguist-vendored
+*.py linguist-vendored=false
